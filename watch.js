@@ -30,7 +30,7 @@ module.exports = async function watch(uri) {
         dbConfig.collections &&
         !dbConfig.collections.hasOwnProperty(collection.name)
       ) {
-        console.log(`${collection.name} not enabled, skipping...`);
+        console.log(`${collection.name} collection not selected, skipping...`);
         continue;
       }
 
