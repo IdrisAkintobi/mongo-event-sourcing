@@ -8,8 +8,12 @@ let defaultConfig = {
       console.log(input);
     },
     http: async function (input, config) {
-      console.log(`Sending data to ${config.endpoint}`);
-      await axios.post(config.endpoint, input);
+      try {
+        await axios.post(config.endpoint, input);
+        console.log(`Data sent to ${config.endpoint}`);
+      } catch (error) {
+        console.log(`Data not sent to ${config.endpoint}`);
+      }
     },
   },
   invoke: async function (args) {
