@@ -17,7 +17,7 @@ app.get("/", (_, res) => {
 });
 
 const background = function () {
-  console.log("mongo-event-sourcing health check 🩺");
+  console.log("🩺 mongo-event-sourcing health check");
   setTimeout(background, 60000);
   count++;
 };
@@ -29,7 +29,7 @@ try {
   //Start the server
   app.listen(port, () => {
     console.log(
-      `MESS (Mongo Event Sourcing) listening at http://localhost:${port} 🚀`
+      `🚀 MESS (Mongo Event Sourcing) listening at http://localhost:${port}`
     );
   });
   //Start watcher
@@ -38,4 +38,5 @@ try {
   background();
 } catch (error) {
   console.log(error);
+  process.exit(1);
 }

@@ -1,6 +1,5 @@
-const { debug } = require("console");
 const config = require.main.require("./config/config");
-const axios = require("axios");
+const { post } = require("axios");
 
 let defaultConfig = {
   actions: {
@@ -9,10 +8,10 @@ let defaultConfig = {
     },
     http: async function (input, config) {
       try {
-        await axios.post(config.endpoint, input);
-        console.log(`Data sent to ${config.endpoint}`);
+        await post(config.endpoint, input);
+        console.log(`📤 Data sent to ${config.endpoint}`);
       } catch (error) {
-        console.log(`Data not sent to ${config.endpoint}`);
+        console.log(`⚠ Data not sent to ${config.endpoint}`);
       }
     },
   },
@@ -24,18 +23,14 @@ let defaultConfig = {
   },
 };
 
-let actualConfig = {
+let appConfig = {
   ...defaultConfig,
   ...config,
 };
 
-let actions = {
-  ...actualConfig.actions,
-  ...actualConfig.plugins,
-};
-actualConfig.actions = actions;
-delete actualConfig.plugins;
+appConfig.actions = { ...appConfig.actions, ...appConfig.plugins };
+delete appConfig.plugins;
 
-console.debug(actualConfig);
+console.debug("Configuration", appConfig);
 
-module.exports = actualConfig;
+module.exports = appConfig;
