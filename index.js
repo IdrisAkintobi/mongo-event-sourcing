@@ -8,11 +8,11 @@ app.use(cors());
 
 app.use("/app", express.static(__dirname + "/ui/dist"));
 
-let count = "1";
+let count = "0";
 
 app.get("/", (_, res) => {
   res.json({
-    changed: count,
+    "health-checked": `${count} times`,
   });
 });
 
