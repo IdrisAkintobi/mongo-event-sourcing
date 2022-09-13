@@ -17,10 +17,10 @@ module.exports = async function watch(uri) {
     let dbConfig = config.databases[element.name];
 
     if (!dbConfig) {
-      console.log(`${element.name} database not selected, skipping...`);
+      console.log(`${element.name} database not selected, skipping...❗`);
       continue;
     }
-    console.log(`Configuring database ${element.name}`);
+    console.log(`Configuring database ${element.name}... ⚙`);
 
     let db = client.db(element.name);
     let collections = await db.listCollections().toArray();
@@ -30,12 +30,12 @@ module.exports = async function watch(uri) {
         dbConfig.collections &&
         !dbConfig.collections.hasOwnProperty(collection.name)
       ) {
-        console.log(`${collection.name} collection not selected, skipping...`);
+        console.log(`${collection.name} collection not selected, skipping...❗`);
         continue;
       }
 
       let changeStream = db.collection(collection.name).watch();
-      console.log(`Watching ${collection.name} for changes...`);
+      console.log(`Watching ${collection.name} for changes... (●'◡'●)`);
       changeStream.on("change", (next) => config.invoke(next));
     }
   }

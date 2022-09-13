@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const watch = require("./watch");
 const app = express();
+require("dotenv").config();
 
 app.use(cors());
 
@@ -9,45 +10,30 @@ app.use("/app", express.static(__dirname + "/ui/dist"));
 
 let count = "1";
 
-app.get("/", (req, res) => {
-  res.json({
-    changed: count,
-  });
-});
-
-app.get("/count", (req, res) => {
+app.get("/", (_, res) => {
   res.json({
     changed: count,
   });
 });
 
 const background = function () {
-  console.log("background executed");
+  console.log("mongo-event-sourcing health check 🩺");
   setTimeout(background, 60000);
   count++;
 };
-
 background();
 
+const port = process.env.PORT || 5000
+const connection = process.env.MONGODB_URL
+
 module.exports = {
-  config: {},
-  server: app,
-  watcher: watch,
-  configFromEnv() {
-    const dotenv = require("dotenv");
-    dotenv.config();
-    this.config.port = process.env.PORT || 3000;
-    this.config.connection = process.env.MONGODB_URL;
-    return this;
-  },
   start() {
-    this.server.listen(this.config.port, () => {
+    app.listen(port, () => {
       console.log(
-        `MESS (Mongo Event Sourcing) listening at http://localhost:${this.config.port}`
+        `MESS (Mongo Event Sourcing) listening at http://localhost:${port} 🚀`
       );
     });
-
-    this.watcher(this.config.connection).catch(console.dir);
-    return this;
+    //Start watcher
+    watch(connection).catch(console.dir);
   },
 };

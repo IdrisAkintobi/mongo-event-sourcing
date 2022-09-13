@@ -1,10 +1,8 @@
 const eventSourcing = require('./index');
 
 
-
-eventSourcing
-.configFromEnv()
-.start();
+//Start the server
+eventSourcing.start();
 
 
 
