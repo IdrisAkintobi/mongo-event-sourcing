@@ -21,19 +21,21 @@ const background = function () {
   setTimeout(background, 60000);
   count++;
 };
-background();
 
-const port = process.env.PORT || 5000
-const connection = process.env.MONGODB_URL
+const port = process.env.PORT || 5000;
+const connection = process.env.MONGODB_URL;
 
-module.exports = {
-  start() {
-    app.listen(port, () => {
-      console.log(
-        `MESS (Mongo Event Sourcing) listening at http://localhost:${port} 🚀`
-      );
-    });
-    //Start watcher
-    watch(connection).catch(console.dir);
-  },
-};
+try {
+  //Start the server
+  app.listen(port, () => {
+    console.log(
+      `MESS (Mongo Event Sourcing) listening at http://localhost:${port} 🚀`
+    );
+  });
+  //Start watcher
+  watch(connection);
+  //Start health check
+  background();
+} catch (error) {
+  console.log(error);
+}

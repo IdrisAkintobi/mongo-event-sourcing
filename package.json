@@ -2,11 +2,11 @@
   "name": "mongo-event-sourcing",
   "version": "1.0.21",
   "description": "mondo db event listener and sourcing",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "test": "test",
-    "serve": "cd ui & npm run build & cd .. & node main.js",
-    "dev": "supervisor  main.js"
+    "serve": "cd ui & npm run build & cd .. & node index.js",
+    "dev": "supervisor  index.js"
   },
   "repository": {
     "type": "git",
