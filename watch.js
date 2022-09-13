@@ -11,7 +11,7 @@ module.exports = async function watch(uri) {
   let adminDb = defaultDb.admin();
   let databases = await adminDb.listDatabases();
 
-  console.log(`Available databases: ${databases.databases}`);
+  console.log("Available databases", databases.databases);
   for (const element of databases.databases) {
     //only selected databases
     let dbConfig = config.databases[element.name];
